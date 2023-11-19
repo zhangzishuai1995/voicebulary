@@ -1,0 +1,48 @@
+<!-- <button id="start">Start Recording</button>
+<button id="stop">Stop Recording</button>
+<script>
+    let mediaRecorder;
+    let audioChunks = [];
+
+    document.getElementById("start").addEventListener("click", async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = event => {
+            audioChunks.push(event.data);
+        };
+        mediaRecorder.start();
+    });
+
+    document.getElementById("stop").addEventListener("click", () => {
+        mediaRecorder.stop();
+        mediaRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            const formData = new FormData();
+            formData.append("audio", audioBlob);
+
+            // Replace with your server URL
+            fetch("YOUR_SERVER_URL", {
+                method: "POST",
+                body: formData
+            });
+            audioChunks = [];
+        };
+    });
+</script> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>录音并转录</title>
+</head>
+<body>
+    <h1>录音并使用 Whisper 转录</h1>
+    <button id="startRecord">开始录音</button>
+    <button id="stopRecord" disabled>停止录音</button>
+    <audio id="audio" controls></audio>
+    <script src="app.js"></script>
+</body>
+</html>
